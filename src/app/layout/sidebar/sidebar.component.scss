@@ -1,0 +1,78 @@
+/* Sidebar dark theme styling */
+
+.sidebar-nav {
+  width: 250px;
+  background-color: #0b1a36;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 1rem;
+  color: #cfd8dc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav .logo-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #1a2a4a;
+}
+
+.sidebar-nav .logo-row img {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 0.75rem;
+}
+
+.sidebar-nav .logo-row .title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+.sidebar-nav li {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  color: #a0b0d0;
+}
+
+.sidebar-nav li mat-icon {
+  margin-right: 1rem;
+  font-size: 20px;
+  color: #7a8bb5;
+}
+
+.sidebar-nav li:hover,
+.sidebar-nav li.active {
+  background-color: #1a2a4a;
+  color: #ffffff;
+}
+
+.sidebar-nav li:hover mat-icon,
+.sidebar-nav li.active mat-icon {
+  color: #ffb300;
+}
+
+/* Scrollbar styling */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: #394264;
+  border-radius: 3px;
+}

@@ -1,0 +1,29 @@
+<div class="user-list">
+  <h2>Workspace Users</h2>
+  <button (click)="newUser()">New User</button>
+
+  <table *ngIf="!loading">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.role }}</td>
+        <td>
+          <button (click)="view(u)">View</button>
+          <button (click)="edit(u)">Edit</button>
+          <button (click)="delete(u)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="loading">Loading...</div>
+</div>

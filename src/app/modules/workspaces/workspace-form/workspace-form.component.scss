@@ -1,0 +1,72 @@
+.workspace-form-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+
+      &:focus {
+        border-color: #42a5f5;
+        outline: none;
+      }
+    }
+
+    .error {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #e53935;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 10px;
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+
+      &:first-child {
+        background: #42a5f5;
+        color: #fff;
+      }
+
+      &.cancel {
+        background: #f1f1f1;
+        color: #333;
+      }
+
+      &:disabled {
+        background: #b0bec5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

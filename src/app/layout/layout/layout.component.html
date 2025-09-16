@@ -1,19 +1,14 @@
-<mat-sidenav-container class="main-container">
-  <mat-sidenav mode="side" opened>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard">Dashboard</a>
-      <a mat-list-item routerLink="/workspaces">Workspaces</a>
-    </mat-nav-list>
-  </mat-sidenav>
+<!-- fixed sidebar layout with header in main content -->
+<div class="layout-shell">
+  <aside class="app-sidebar" [class.closed]="!sidebarOpen">
+    <app-sidebar></app-sidebar>
+  </aside>
 
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <span>OutreachHub Admin</span>
-      <span class="spacer"></span>
-      <button mat-button (click)="logout()">Logout</button>
-    </mat-toolbar>
-    <div class="content">
+  <section class="main-content" [class.sidebar-closed]="!sidebarOpen">
+    <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+    <div class="content-inner">
+      <!-- Router outlet lives here -->
       <router-outlet></router-outlet>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </section>
+</div>

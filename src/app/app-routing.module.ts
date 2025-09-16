@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth/auth.guard';
+import { LayoutComponent } from './layout/layout/layout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -10,8 +11,20 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    component: LayoutComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
+    children: [
+      {
+        path: 'workspaces',
+        loadChildren: () =>
+          import('./modules/workspaces/workspaces.module').then(m => m.WorkspacesModule),
+      },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./modules/users/users.module').then(m => m.UsersModule),
+      },
+    ],
   },
   { path: '**', redirectTo: 'login' }
 ];

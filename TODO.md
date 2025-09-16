@@ -1,3 +1,7 @@
 - [x] Update app-routing.module.ts to lazy load the auth module instead of directly importing LoginComponent
 - [x] Remove the direct import of LoginComponent from app-routing.module.ts
-- [ ] Test the application to ensure the errors are resolved
+- [x] Test the application to ensure the errors are resolved
+- [x] Fix sidebar navigation to use absolute paths
+- [x] Fix back navigation in view and detail components
+- [x] Add redirect logic in login component to prevent access when logged in
+- [x] Fix back button in workspace-view to navigate to workspace-list

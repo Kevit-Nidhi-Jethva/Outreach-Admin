@@ -1,10 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { WorkspaceService } from '../workspace.service';
+import { Workspace } from '../../../core/models/workspace.model';
+import { AuthService } from '../../../core/auth/auth.service'; // ✅ import auth service
 
 @Component({
   selector: 'app-workspace-list',
   templateUrl: './workspace-list.component.html',
-  styleUrl: './workspace-list.component.scss'
+  styleUrls: ['./workspace-list.component.scss'],
 })
-export class WorkspaceListComponent {
+export class WorkspaceListComponent implements OnInit {
+  workspaces: Workspace[] = [];
+  loading = false;
+  error: string | null = null;
+  currentUserName: string | null = null; // ✅ store decoded user name
 
+  constructor(
+    private service: WorkspaceService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService // ✅ inject auth service
+  ) {}
+
+  ngOnInit(): void {
+    this.currentUserName = this.authService.getUserNameFromToken(); // ✅ decode token
+    this.load();
+  }
+
+  load() {
+    this.loading = true;
+    this.error = null;
+    this.service.list().subscribe({
+      next: (data) => {
+        // ✅ Replace createdBy id with name if it matches current user
+        this.workspaces = data.map((ws) => ({
+          ...ws,
+          createdBy: this.currentUserName || ws.createdBy,
+        }));
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err.error?.message || 'Failed to load workspaces';
+        this.loading = false;
+      },
+    });
+  }
+
+  view(id: string) {
+    this.router.navigate([id], { relativeTo: this.activatedRoute });
+  }
+
+  edit(id: string) {
+    this.router.navigate([id, 'edit'], { relativeTo: this.activatedRoute });
+  }
+
+  delete(id: string) {
+    if (!confirm('Are you sure you want to delete this workspace?')) return;
+    this.service.delete(id).subscribe({
+      next: () => this.load(),
+      error: (err) => (this.error = err.error?.message || 'Delete failed'),
+    });
+  }
+
+  newWorkspace() {
+    this.router.navigate(['new'], { relativeTo: this.activatedRoute });
+  }
 }
