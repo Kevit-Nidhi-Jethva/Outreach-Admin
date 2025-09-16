@@ -1,1 +1,31 @@
-<p>workspace-list works!</p>
+<div class="workspace-list">
+  <h2>Workspaces</h2>
+
+  <button (click)="newWorkspace()">+ New Workspace</button>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="!loading && workspaces.length > 0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ws of workspaces">
+        <td>{{ ws.name }}</td>
+        <td>{{ ws.createdBy }}</td>
+        <td>
+          <button (click)="view(ws._id)">View</button>
+          <button (click)="edit(ws._id)">Edit</button>
+          <button (click)="delete(ws._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && workspaces.length === 0">No workspaces found.</p>
+</div>

@@ -1,1 +1,13 @@
-<p>sidebar works!</p>
+<nav class="sidebar-nav">
+  <ul>
+    <li class="logo-row">
+      <img src="assets/logo1.png" alt="logo" />
+      <div class="title">Admin</div>
+    </li>
+
+    <li *ngFor="let it of items" (click)="navigate(it.route)" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <mat-icon>{{ it.icon }}</mat-icon>
+      <span>{{ it.label }}</span>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,108 @@
+/* Header dark theme styling */
+
+.header-container {
+  background-color: #0b1a36;
+  color: #cfd8dc;
+  height: 56px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.greeting-message {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+button.btn-sm.btn-danger {
+  background-color: #ff4d4f;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-sm.btn-danger:hover {
+  background-color: #d9363e;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.header-center input.form-control-dark {
+  background-color: #152a4a;
+  border: none;
+  color: #cfd8dc;
+  height: 36px;
+  border-radius: 18px;
+  padding-left: 1rem;
+}
+
+.header-center input.form-control-dark::placeholder {
+  color: #7a8bb5;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.btn-icon {
+  background-color: #152a4a;
+  border: none;
+  color: #cfd8dc;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background-color: #394264;
+  color: #ffb300;
+}
+
+.user-info a {
+  cursor: pointer;
+  color: #cfd8dc;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-info a:hover {
+  color: #ffb300;
+}
+
+.dropdown-menu-dark {
+  background-color: #152a4a;
+  border-radius: 8px;
+  min-width: 160px;
+}
+
+.dropdown-item {
+  color: #cfd8dc;
+}
+
+.dropdown-item:hover {
+  background-color: #394264;
+  color: #ffb300;
+}

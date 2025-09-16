@@ -1,0 +1,39 @@
+<div class="user-form">
+  <h2>{{ id ? 'Edit User' : 'New User' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <label>
+      Name
+      <input formControlName="name" />
+    </label>
+    <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+      Name is required
+    </div>
+
+    <label>
+      Email
+      <input formControlName="email" />
+    </label>
+    <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+      Valid email is required
+    </div>
+
+    <label>
+      Role
+      <select formControlName="role">
+        <option value="viewer">Viewer</option>
+        <option value="editor">Editor</option>
+      </select>
+    </label>
+
+    <div class="actions">
+      <button type="submit" [disabled]="loading">Save</button>
+      <button
+        type="button"
+        (click)="router.navigate(['admin/workspaces', workspaceId, 'users'])"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

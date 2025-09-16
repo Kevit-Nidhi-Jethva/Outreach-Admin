@@ -1,0 +1,7 @@
+<div class="workspace-detail" *ngIf="workspace">
+  <h2>{{ workspace.name }}</h2>
+  <div class="actions">
+    <button (click)="edit()">Edit</button>
+    <button (click)="manageUsers()">Manage Users</button>
+  </div>
+</div>

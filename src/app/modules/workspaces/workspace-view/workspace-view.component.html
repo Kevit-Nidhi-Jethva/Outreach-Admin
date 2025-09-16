@@ -1,0 +1,17 @@
+<div class="workspace-view-container" *ngIf="!loading && workspace; else loadingTpl">
+  <div class="header">
+    <h2>Workspace Details</h2>
+    <button (click)="backToList()">⬅ Back</button>
+  </div>
+
+  <div class="details">
+    <p><strong>ID:</strong> {{ workspace._id }}</p>
+    <p><strong>Name:</strong> {{ workspace.name }}</p>
+    <p><strong>Created By:</strong> {{ workspace.createdBy }}</p>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <p *ngIf="loading">Loading workspace...</p>
+  <p *ngIf="error">{{ error }}</p>
+</ng-template>

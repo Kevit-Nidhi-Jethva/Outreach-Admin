@@ -1,0 +1,71 @@
+.dashboard-container {
+  padding: 20px;
+  background-color: #f8fafc;
+}
+
+.dashboard-header {
+  margin-bottom: 20px;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  flex: 1;
+  padding: 20px;
+  color: white;
+  border-radius: 8px;
+}
+
+.earning-card {
+  background-color: #1e40af;
+}
+
+.share-card {
+  background-color: #2563eb;
+  color: black;
+}
+
+.likes-card {
+  background-color: #facc15;
+  color: black;
+}
+
+.rating-card {
+  background-color: #f97316;
+  color: black;
+}
+
+.dashboard-charts {
+  display: flex;
+  gap: 20px;
+}
+
+.chart-card {
+  flex: 1;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.chart-placeholder {
+  height: 150px;
+  background: #e0e7ff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  font-weight: 600;
+}
+
+.chart-info {
+  margin-top: 10px;
+}
+
+.chart-info p {
+  margin: 4px 0;
+}
