@@ -1,1 +1,87 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <div class="login-container">
+    <!-- Left Side -->
+    <div class="login-left">
+      <div class="left-content">
+        
+
+        <h1>Welcome to<br>OutreachHub<span class="wave">👋</span></h1>
+        <p>
+          Manage workspaces, users, contacts, and campaigns in one
+          powerful platform. Stay productive and in control — all in one place!
+        </p>
+
+        <div class="copyright">© 2025 OutreachHub. All rights reserved.</div>
+      </div>
+    </div>
+
+    <!-- Right Side (Login Form) -->
+    <div class="login-right">
+      <div class="form-box">
+        <!-- Colored logo for light background -->
+        <div class="brand-logo mb-4">
+          <img src="assets/logo1.png" alt="OutreachHub Logo" />
+        </div>
+
+        <h2 class="welcome-title">Sign in to your account</h2>
+        <div class="mb-3 small text-muted text-center">
+          Don’t have access? <a href="#" class="text-link">Request an invite</a> from your workspace admin.
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- Email -->
+          <mat-form-field appearance="outline" class="full-width mb-3">
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="Work Email"
+              autocomplete="username"
+            />
+            <mat-error *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+              <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+              <span *ngIf="loginForm.get('email')?.errors?.['email']">Enter a valid email</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Password -->
+          <mat-form-field appearance="outline" class="full-width mb-2">
+            <input
+              matInput
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Password"
+              autocomplete="current-password"
+            />
+            <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Error Message -->
+          <mat-error *ngIf="errorMessage" class="text-center mb-2">{{ errorMessage }}</mat-error>
+
+          <!-- Buttons -->
+          <button
+            mat-raised-button
+            color="primary"
+            class="login-btn full-width mt-2"
+            [disabled]="loginForm.invalid || loading"
+          >
+            {{ loading ? 'Signing In...' : 'Login' }}
+          </button>
+
+          
+
+          <!-- Forgot Password -->
+          <!-- <div class="text-center mt-3 small">
+            Forgot password? <a href="#" class="text-link">Reset here</a>
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

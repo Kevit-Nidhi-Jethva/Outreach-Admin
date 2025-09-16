@@ -1,0 +1,3 @@
+- [x] Update app-routing.module.ts to lazy load the auth module instead of directly importing LoginComponent
+- [x] Remove the direct import of LoginComponent from app-routing.module.ts
+- [ ] Test the application to ensure the errors are resolved
