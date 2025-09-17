@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
   }
 
   decodeToken(token: string): any {
@@ -52,14 +52,14 @@ export class AuthService {
   }
 
   getCurrentUser(): any {
-  const user = localStorage.getItem('user');
+  const user = typeof localStorage !== 'undefined' ? localStorage.getItem('user') : null;
   if (!user) return null;
 
   try {
     return JSON.parse(user);
   } catch (e) {
     console.warn('Invalid user in localStorage, clearing it', e);
-    localStorage.removeItem('user');
+    if (typeof localStorage !== 'undefined') localStorage.removeItem('user');
     return null;
   }
 }

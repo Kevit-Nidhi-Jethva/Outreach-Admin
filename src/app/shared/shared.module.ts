@@ -7,12 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserListComponent } from '../modules/users/user-list/user-list.component';
-import { UserFormComponent } from '../modules/users/user-form/user-form.component';
-import { UserDetailComponent } from '../modules/users/user-detail/user-detail.component';
 
 @NgModule({
-  declarations: [UserListComponent, UserFormComponent, UserDetailComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MatTableModule,
@@ -22,8 +19,18 @@ import { UserDetailComponent } from '../modules/users/user-detail/user-detail.co
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [UserListComponent, UserFormComponent, UserDetailComponent]
+  exports: [
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ]
 })
 export class SharedModule {}

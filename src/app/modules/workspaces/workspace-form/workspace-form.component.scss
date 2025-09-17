@@ -1,72 +1,89 @@
 .workspace-form-container {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 2.5rem 0;
+}
+.workspace-form-container .card {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 16px;
   background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+.workspace-form-container form.row.g-3 > .col-12 {
+  margin-bottom: 1.5rem;
+}
+.workspace-form-container .form-label {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 0.7rem;
+  display: block;
+}
+.workspace-form-container .form-control {
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-
-  h2 {
-    margin-bottom: 20px;
-    font-size: 22px;
-    font-weight: 600;
-    color: #333;
+  font-size: 1.08rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ced4da;
+  margin-bottom: 0.2rem;
+  display: block;
+  width: 100%;
+}
+.workspace-form-container .invalid-feedback {
+  color: #e53935;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.workspace-form-container .d-flex {
+  gap: 2rem;
+}
+.workspace-form-container h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.workspace-form-container .form-label {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+.workspace-form-container .form-control {
+  border-radius: 8px;
+  font-size: 1.08rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ced4da;
+  margin-bottom: 0.5rem;
+  &:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.1rem rgba(13,110,253,.15);
   }
-
-  .form-group {
-    margin-bottom: 16px;
-
-    label {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-
-    input {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 14px;
-
-      &:focus {
-        border-color: #42a5f5;
-        outline: none;
-      }
-    }
-
-    .error {
-      margin-top: 4px;
-      font-size: 13px;
-      color: #e53935;
-    }
+}
+.workspace-form-container .invalid-feedback {
+  color: #e53935;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.workspace-form-container .d-flex {
+  gap: 2rem;
+}
+.workspace-form-container .p-button-success {
+  min-width: 130px;
+  font-size: 1rem;
+}
+.workspace-form-container .p-button-secondary {
+  min-width: 110px;
+  font-size: 1rem;
+}
+@media (max-width: 767px) {
+  .workspace-form-container .card {
+    max-width: 98vw;
+    padding: 1.5rem 0.5rem;
   }
-
-  .form-actions {
-    display: flex;
-    gap: 10px;
-
-    button {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-
-      &:first-child {
-        background: #42a5f5;
-        color: #fff;
-      }
-
-      &.cancel {
-        background: #f1f1f1;
-        color: #333;
-      }
-
-      &:disabled {
-        background: #b0bec5;
-        cursor: not-allowed;
-      }
-    }
+  .workspace-form-container {
+    padding: 1rem 0;
   }
 }

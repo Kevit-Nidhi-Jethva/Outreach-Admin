@@ -1,39 +1,51 @@
-<div class="user-form">
-  <h2>{{ id ? 'Edit User' : 'New User' }}</h2>
+<p-toast></p-toast>
 
-  <form [formGroup]="form" (ngSubmit)="save()">
-    <label>
-      Name
-      <input formControlName="name" />
-    </label>
-    <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
-      Name is required
+<div class="user-form-container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card user-form-card shadow-sm">
+        <h4 class="fw-bold mb-4">{{ isEdit ? 'Edit User' : 'Add New User' }}</h4>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="user-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input pInputText formControlName="name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input pInputText formControlName="email" class="form-control" />
+            </div>
+          </div>
+
+          <!-- Only show password on create -->
+          <div class="form-row" *ngIf="!isEdit">
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input pInputText type="password" formControlName="password" class="form-control" />
+            </div>
+          </div>
+
+          <!-- Role selection (always shown, edit or create) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Role</label>
+              <p-dropdown [options]="roleOptions"
+                          formControlName="role"
+                          optionLabel="label"
+                          optionValue="value"
+                          class="w-100">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="form-actions mt-4">
+            <button pButton type="button" label="Back" class="btn-back p-button-secondary" (click)="navigateBack()"></button>
+            <button pButton type="submit" label="{{ isEdit ? 'Update' : 'Create' }}" class="btn-submit p-button-success" [disabled]="form.invalid" [loading]="loading"></button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <label>
-      Email
-      <input formControlName="email" />
-    </label>
-    <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
-      Valid email is required
-    </div>
-
-    <label>
-      Role
-      <select formControlName="role">
-        <option value="viewer">Viewer</option>
-        <option value="editor">Editor</option>
-      </select>
-    </label>
-
-    <div class="actions">
-      <button type="submit" [disabled]="loading">Save</button>
-      <button
-        type="button"
-        (click)="router.navigate(['admin/workspaces', workspaceId, 'users'])"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
+  </div>
 </div>

@@ -1,32 +1,71 @@
-.workspace-list {
-  padding: 1rem;
+:host {
+  display: block;
 
-  h2 {
-    margin-bottom: 1rem;
-  }
+  .workspace-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 
-  button {
-    margin: 0.2rem;
-  }
-
-  table {
-    width: 100%;
-    margin-top: 1rem;
-    border-collapse: collapse;
-
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 0.5rem;
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 1rem;
     }
 
-    th {
-      background: #f4f4f4;
+    .btn-new {
+      min-width: 140px;
+      height: 40px;
+      font-size: 0.95rem;
+      background-color: #198754;
+      border: none;
+      color: #fff;
     }
-  }
+    .btn-new:hover { background-color: #157347; }
 
-  .error {
-    color: red;
-    margin-top: 0.5rem;
+    .loading {
+      margin: 2rem 0;
+    }
+
+    .error {
+      color: #dc3545;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+
+    .workspace-table {
+      border-radius: 12px;
+      background: #fff;
+      color: #212529;
+      th, td {
+        vertical-align: middle;
+        font-size: 1rem;
+      }
+      th {
+        font-weight: 600;
+        background: #f8f9fa;
+        color: #212529;
+      }
+      .action-btn {
+        min-width: 36px;
+        height: 36px;
+        line-height: 36px;
+        font-size: 0.9rem;
+        border-radius: 50%;
+        padding: 0;
+        margin-right: 0.25rem;
+      }
+      .view-btn { background-color: #0d6efd; border: none; color: #fff; }
+      .edit-btn { background-color: #ffc107; border: none; color: #212529; }
+      .delete-btn { background-color: #dc3545; border: none; color: #fff; }
+      .view-btn:hover { background-color: #0b5ed7; }
+      .edit-btn:hover { background-color: #e0a800; }
+      .delete-btn:hover { background-color: #bb2d3b; }
+    }
+
+    @media (max-width: 767px) {
+      .action-btn { margin: 2px 0; }
+    }
   }
 }

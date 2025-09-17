@@ -1,29 +1,94 @@
-<div class="user-list">
-  <h2>Workspace Users</h2>
-  <button (click)="newUser()">New User</button>
+<p-toast></p-toast>
 
-  <table *ngIf="!loading">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let u of users">
-        <td>{{ u.name }}</td>
-        <td>{{ u.email }}</td>
-        <td>{{ u.role }}</td>
-        <td>
-          <button (click)="view(u)">View</button>
-          <button (click)="edit(u)">Edit</button>
-          <button (click)="delete(u)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="user-list-container">
+  <div class="header d-flex justify-content-between align-items-center flex-wrap">
+    <h3>{{ workspaceId ? 'Workspace Users' : 'All Users' }}</h3>
+    <div class="header-actions">
+      <button
+        pButton
+        label="Add User"
+        icon="pi pi-plus"
+        class="btn-add p-button-success"
+        (click)="addUser()"
+      ></button>
+      <button
+        pButton
+        label="Back"
+        icon="pi pi-arrow-left"
+        class="btn-back p-button-secondary"
+        (click)="back()"
+      ></button>
+    </div>
+  </div>
 
-  <div *ngIf="loading">Loading...</div>
+  <div class="card users-card p-3 shadow-sm border-0">
+    <p-table
+      [value]="users"
+      [loading]="loading"
+      responsiveLayout="scroll"
+      class="users-table"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      sortField="name"
+      [sortOrder]="1"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">
+            Name <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="email">
+            Email <p-sortIcon field="email"></p-sortIcon>
+          </th>
+          <th pSortableColumn="role">
+            Role <p-sortIcon field="role"></p-sortIcon>
+          </th>
+          <th class="text-center" style="width: 160px">Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <!-- ✅ always take flattened role -->
+          <td>{{ user.role || 'N/A' }}</td>
+          <td class="text-center">
+            <div class="action-buttons d-flex justify-content-center gap-1">
+              <button
+                pButton
+                icon="pi pi-eye"
+                class="action-btn view-btn"
+                (click)="view(user)"
+              ></button>
+              <button
+                pButton
+                icon="pi pi-pencil"
+                class="action-btn edit-btn"
+                (click)="edit(user)"
+              ></button>
+              <button
+                pButton
+                icon="pi pi-trash"
+                class="action-btn delete-btn"
+                (click)="delete(user)"
+              ></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="paginatorleft">
+        <div class="total-users">Total Users: {{ users.length }}</div>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div
+    *ngIf="loading"
+    class="loading-overlay d-flex justify-content-center align-items-center"
+  >
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #0d6efd"></i>
+  </div>
 </div>

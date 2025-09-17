@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: 'dashboard',
@@ -24,9 +25,10 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/users/users.module').then(m => m.UsersModule),
       },
+      { path: '', redirectTo: 'workspaces', pathMatch: 'full' }, // Default inside dashboard
     ],
   },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({

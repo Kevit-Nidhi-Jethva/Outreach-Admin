@@ -1,40 +1,57 @@
 .workspace-view-container {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 70vh;
+  padding: 2.5rem 0;
+}
+.workspace-view-container .card {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 16px;
   background: #fff;
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-
-    h2 {
-      margin: 0;
-    }
-
-    button {
-      padding: 6px 12px;
-      background: #1976d2;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-
-      &:hover {
-        background: #0d47a1;
-      }
-    }
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+.workspace-view-container h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+.workspace-view-container .details {
+  margin-top: 1.5rem;
+}
+.workspace-view-container .detail-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.08rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.workspace-view-container .label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 110px;
+  display: inline-block;
+}
+.workspace-view-container .value {
+  color: #212529;
+  margin-left: 0.5rem;
+  word-break: break-all;
+}
+@media (max-width: 767px) {
+  .workspace-view-container .card {
+    max-width: 98vw;
+    padding: 1.5rem 0.5rem;
   }
-
-  .details {
-    line-height: 1.8;
-
-    p {
-      margin: 6px 0;
-    }
+  .workspace-view-container {
+    padding: 1rem 0;
+  }
+  .workspace-view-container .detail-item {
+    padding: 0.8rem 0.7rem;
+    font-size: 1rem;
   }
 }

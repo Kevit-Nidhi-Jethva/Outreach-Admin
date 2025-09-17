@@ -1,5 +1,4 @@
 /* Sidebar dark theme styling */
-
 .sidebar-nav {
   width: 250px;
   background-color: #0b1a36;
@@ -22,22 +21,24 @@
 
 .sidebar-nav .logo-row {
   display: flex;
-  align-items: center;
-  padding: 1rem;
+  flex-direction: column;   /* stack vertically */
+  align-items: center;      /* center horizontally */
+  justify-content: center;
+  padding: 1.5rem 1rem;
   border-bottom: 1px solid #1a2a4a;
 }
 
 .sidebar-nav .logo-row img {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  margin-right: 0.75rem;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 0.5rem;
 }
 
 .sidebar-nav .logo-row .title {
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #ffffff;
+  text-align: center;
 }
 
 .sidebar-nav li {
