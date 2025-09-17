@@ -1,9 +1,34 @@
-<div class="user-detail" *ngIf="user">
-  <h2>{{ user.name }}</h2>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Role:</strong> {{ user.role }}</p>
-  <div class="actions">
-    <button (click)="edit()">Edit</button>
-    <button (click)="router.navigate(['../'])">Back</button>
+<p-toast></p-toast>
+
+<div class="user-detail-container">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card user-detail-card shadow-sm p-4">
+        <h4 class="fw-bold mb-4">User Details</h4>
+
+        <div class="detail-row row g-3">
+          <div class="col-md-6">
+            <label class="detail-label">Name</label>
+            <div class="detail-value">{{ user?.name }}</div>
+          </div>
+          <div class="col-md-6">
+            <label class="detail-label">Email</label>
+            <div class="detail-value">{{ user?.email }}</div>
+          </div>
+          <div class="col-md-6">
+            <label class="detail-label">Role</label>
+            <div class="detail-value">{{ user?.role }}</div>
+          </div>
+          <div class="col-md-6">
+            <label class="detail-label">User ID</label>
+            <div class="detail-value">{{ user?._id }}</div>
+          </div>
+        </div>
+
+        <div class="form-actions mt-4 d-flex justify-content-end">
+          <button pButton type="button" label="Back" icon="pi pi-arrow-left" class="btn-back p-button-secondary" (click)="back()"></button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

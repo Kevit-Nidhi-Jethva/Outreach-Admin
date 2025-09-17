@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
+import { MessageService } from 'primeng/api';
+import { WorkspaceUser } from '../../../core/models/workspace-user.model';
 
 @Component({
   selector: 'app-user-form',
@@ -10,52 +12,107 @@ import { UserService } from '../user.service';
 })
 export class UserFormComponent implements OnInit {
   form!: FormGroup;
-  workspaceId?: string;
-  id?: string;
+  workspaceId!: string | null;
+  userId!: string | null;
+  isEdit = false;
   loading = false;
+
+  roleOptions = [
+    { label: 'Editor', value: 'Editor' },
+    { label: 'Viewer', value: 'Viewer' }
+  ];
 
   constructor(
     private fb: FormBuilder,
-    private service: UserService,
     private route: ActivatedRoute,
-    public router: Router
+    private router: Router,
+    private userService: UserService,
+    private messageService: MessageService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.workspaceId = this.route.snapshot.paramMap.get('id');
+    this.userId = this.route.snapshot.paramMap.get('userId');
+    this.isEdit = !!this.userId;
+
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      role: ['viewer', Validators.required]
+      password: [''],
+      role: ['Editor', Validators.required]
     });
 
-    this.workspaceId = this.route.snapshot.paramMap.get('id') || undefined;
-    this.id = this.route.snapshot.paramMap.get('userId') || undefined;
-    if (this.id) this.load();
+    if (this.isEdit && this.userId) {
+      this.userService.getUserById(this.userId).subscribe({
+        next: (user: WorkspaceUser) => {
+          // Always take role from workspace if available
+          const wsRole = user.workspaces?.find(w => w.workspaceId === this.workspaceId)?.role;
+
+          this.form.patchValue({
+            name: user.name,
+            email: user.email,
+            role: wsRole || 'Viewer'   // fallback if role not found
+          });
+        },
+        error: () =>
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Could not load user'
+          })
+      });
+    }
   }
 
-  load() {
+  submit(): void {
+    if (this.form.invalid) return;
     this.loading = true;
-    this.service.get(this.workspaceId!, this.id!).subscribe({
-      next: u => {
-        this.form.patchValue(u);
-        this.loading = false;
-      }
-    });
+
+    const val = this.form.value;
+
+    if (this.isEdit && this.userId) {
+      const body: any = {
+        name: val.name,
+        email: val.email,
+        workspaces: [{ workspaceId: this.workspaceId, role: val.role }]
+      };
+
+      this.userService.updateUser(this.userId, body).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Saved', detail: 'User updated' });
+          this.navigateBack();
+        },
+        error: () => {
+          this.loading = false;
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Update failed' });
+        }
+      });
+    } else {
+      const body: any = {
+        name: val.name,
+        email: val.email,
+        password: val.password || (val.email ? `${val.email.split('@')[0]}${Date.now()}` : `pw${Date.now()}`),
+        workspaces: [{ workspaceId: this.workspaceId, role: val.role }]
+      };
+
+      this.userService.createUser(body).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Created', detail: 'User created' });
+          this.navigateBack();
+        },
+        error: () => {
+          this.loading = false;
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Create failed' });
+        }
+      });
+    }
   }
 
-  save() {
-    if (this.form.invalid) return this.form.markAllAsTouched();
-    this.loading = true;
-    const payload = this.form.value;
-    const obs = this.id
-      ? this.service.update(this.workspaceId!, this.id, payload)
-      : this.service.create(this.workspaceId!, payload);
-    obs.subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['admin/workspaces', this.workspaceId, 'users']);
-      },
-      error: () => (this.loading = false)
-    });
+  navigateBack(): void {
+    if (this.workspaceId) {
+      this.router.navigate(['/dashboard/workspaces', this.workspaceId, 'users']);
+    } else {
+      this.router.navigate(['/dashboard/users']);
+    }
   }
 }

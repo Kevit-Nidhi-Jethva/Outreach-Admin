@@ -1,23 +1,119 @@
-.user-list {
-  padding: 1rem;
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+:host {
+  display: block;
 
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 0.5rem;
-      text-align: left;
+  .user-list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 1rem;
+  }
+
+  .header {
+    margin-bottom: 1.5rem;
+
+    .header-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      .btn-add, .btn-back {
+        min-width: 110px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+
+      .btn-add {
+        background-color: #198754;
+        border: none;
+      }
+      .btn-back {
+        background-color: #6c757d;
+        border: none;
+      }
+
+      .btn-add:hover { background-color: #157347; }
+      .btn-back:hover { background-color: #5a6268; }
+    }
+  }
+
+  .users-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #212529;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .users-table {
+    border-radius: 12px;
+    overflow: hidden;
+
+    th, td {
+      vertical-align: middle;
+      font-size: 0.95rem;
     }
 
     th {
-      background: #f4f4f4;
+      background: #f1f3f5;
+      color: #495057;
+      font-weight: 600;
     }
 
-    button {
-      margin-right: 0.4rem;
+    td {
+      color: #495057;
     }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      flex-wrap: nowrap;
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .view-btn { background-color: #0d6efd; border: none; color: #fff; }
+    .view-btn:hover { background-color: #0b5ed7; }
+
+    .edit-btn { background-color: #ffc107; border: none; color: #212529; }
+    .edit-btn:hover { background-color: #e0a800; }
+
+    .delete-btn { background-color: #dc3545; border: none; color: #fff; }
+    .delete-btn:hover { background-color: #bb2d3b; }
+
+    .p-paginator .p-paginator-left {
+      font-weight: 500;
+      color: #495057;
+    }
+  }
+
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.6);
+    z-index: 10;
+  }
+
+  @media (max-width: 767px) {
+    .header-actions { width: 100%; justify-content: flex-start; }
+    .action-btn { margin: 0; }
   }
 }

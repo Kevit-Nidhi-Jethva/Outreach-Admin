@@ -1,17 +1,27 @@
-<div class="workspace-view-container" *ngIf="!loading && workspace; else loadingTpl">
-  <div class="header">
-    <h2>Workspace Details</h2>
-    <button (click)="backToList()">⬅ Back</button>
-  </div>
-
-  <div class="details">
-    <p><strong>ID:</strong> {{ workspace._id }}</p>
-    <p><strong>Name:</strong> {{ workspace.name }}</p>
-    <p><strong>Created By:</strong> {{ workspace.createdBy }}</p>
+<div class="workspace-view-container">
+  <div class="card shadow-sm p-4" *ngIf="!loading && workspace; else loadingTpl">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <h3 class="fw-bold mb-0">Workspace Details</h3>
+      <button pButton type="button" label="Back to List" icon="pi pi-arrow-left" class="p-button-secondary" (click)="backToList()"></button>
+    </div>
+    <div class="details">
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <div class="detail-item"><span class="label">ID:</span> <span class="value">{{ workspace._id }}</span></div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="detail-item"><span class="label">Name:</span> <span class="value">{{ workspace.name }}</span></div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="detail-item"><span class="label">Created By:</span> <span class="value">{{ workspace.createdBy }}</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
 <ng-template #loadingTpl>
-  <p *ngIf="loading">Loading workspace...</p>
-  <p *ngIf="error">{{ error }}</p>
+  <div class="card shadow-sm p-4 text-center mt-5">
+    <p *ngIf="loading" class="mb-0">Loading workspace...</p>
+    <p *ngIf="error" class="text-danger mb-0">{{ error }}</p>
+  </div>
 </ng-template>

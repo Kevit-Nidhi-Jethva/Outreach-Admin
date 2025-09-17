@@ -1,34 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UsersRoutingModule } from './users-routing.module';
+
+// PrimeNG modules
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { MessageService, ConfirmationService } from 'primeng/api';
+
+import { AdminLandingComponent } from './admin-landing/admin-landing.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 
-const routes: Routes = [
-  { path: '', component: UserListComponent }
-];
-
 @NgModule({
-  declarations: [],
+  declarations: [
+    AdminLandingComponent,
+    UserListComponent,
+    UserFormComponent,
+    UserDetailComponent
+  ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatDialogModule,
-    MatInputModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    UsersRoutingModule,
+    TableModule,
+    ButtonModule,
+    InputTextModule,
+    DropdownModule,
+    CardModule,
+    ToastModule,
+    ConfirmDialogModule
+  ],
+  providers: [MessageService, ConfirmationService],
+  exports: [AdminLandingComponent]
 })
 export class UsersModule {}

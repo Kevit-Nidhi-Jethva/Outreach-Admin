@@ -1,29 +1,24 @@
 <div class="workspace-form-container">
-  <h2>{{ isEditMode ? 'Edit Workspace' : 'Create Workspace' }}</h2>
-
-  <form [formGroup]="workspaceForm" (ngSubmit)="onSubmit()">
-    <!-- Name -->
-    <div class="form-group">
-      <label for="name">Workspace Name</label>
-      <input
-        id="name"
-        type="text"
-        formControlName="name"
-        placeholder="Enter workspace name"
-      />
-      <div class="error" *ngIf="workspaceForm.get('name')?.touched && workspaceForm.get('name')?.invalid">
-        Workspace name is required.
+  <div class="card shadow-sm p-4">
+    <h3 class="fw-bold mb-4">{{ isEditMode ? 'Edit Workspace' : 'Create Workspace' }}</h3>
+    <form [formGroup]="workspaceForm" (ngSubmit)="onSubmit()" class="row g-3">
+      <div class="col-12">
+        <label for="name" class="form-label">Workspace Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-control"
+          placeholder="Enter workspace name"
+        />
+        <div class="invalid-feedback d-block" *ngIf="workspaceForm.get('name')?.touched && workspaceForm.get('name')?.invalid">
+          Workspace name is required.
+        </div>
       </div>
-    </div>
-
-    <!-- Buttons -->
-    <div class="form-actions">
-      <button type="submit" [disabled]="workspaceForm.invalid">
-        {{ isEditMode ? 'Update' : 'Create' }}
-      </button>
-      <button type="button" class="cancel" (click)="router.navigate(['/dashboard/workspaces'])">
-        Cancel
-      </button>
-    </div>
-  </form>
+      <div class="col-12 d-flex justify-content-center gap-4 mt-4">
+        <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}" class="p-button-success" [disabled]="workspaceForm.invalid"></button>
+        <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="router.navigate(['/dashboard/workspaces'])"></button>
+      </div>
+    </form>
+  </div>
 </div>

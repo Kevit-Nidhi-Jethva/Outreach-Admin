@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.greeting = 'Good Evening';
     }
-    this.greetingMessage = `${this.greeting}, ${this.user?.name || 'User'}!`;
+    this.greetingMessage = `${this.greeting}, ${this.user?.name || 'Admin'}!`;
   }
 
   logout(): void {

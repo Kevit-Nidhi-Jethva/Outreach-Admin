@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorkspaceService } from '../workspace.service';
 import { Workspace } from '../../../core/models/workspace.model';
-import { AuthService } from '../../../core/auth/auth.service'; // ✅ import auth service
+import { AuthService } from '../../../core/auth/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-workspace-list',
@@ -13,17 +14,18 @@ export class WorkspaceListComponent implements OnInit {
   workspaces: Workspace[] = [];
   loading = false;
   error: string | null = null;
-  currentUserName: string | null = null; // ✅ store decoded user name
+  currentUserName: string | null = null;
 
   constructor(
     private service: WorkspaceService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService // ✅ inject auth service
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
-    this.currentUserName = this.authService.getUserNameFromToken(); // ✅ decode token
+    this.currentUserName = this.authService.getUserNameFromToken();
     this.load();
   }
 
@@ -32,7 +34,6 @@ export class WorkspaceListComponent implements OnInit {
     this.error = null;
     this.service.list().subscribe({
       next: (data) => {
-        // ✅ Replace createdBy id with name if it matches current user
         this.workspaces = data.map((ws) => ({
           ...ws,
           createdBy: this.currentUserName || ws.createdBy,
@@ -57,12 +58,21 @@ export class WorkspaceListComponent implements OnInit {
   delete(id: string) {
     if (!confirm('Are you sure you want to delete this workspace?')) return;
     this.service.delete(id).subscribe({
-      next: () => this.load(),
-      error: (err) => (this.error = err.error?.message || 'Delete failed'),
+      next: () => {
+        this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Workspace deleted' });
+        this.load();
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error?.message || 'Delete failed' });
+      },
     });
   }
 
   newWorkspace() {
     this.router.navigate(['new'], { relativeTo: this.activatedRoute });
+  }
+
+  back() {
+    this.router.navigate(['/dashboard']); // if needed, optional
   }
 }

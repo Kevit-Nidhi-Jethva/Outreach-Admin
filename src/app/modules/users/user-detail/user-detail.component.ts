@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { User } from '../../../core/models/user.model';
+import { WorkspaceUser } from '../../../core/models/workspace-user.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -9,34 +9,34 @@ import { User } from '../../../core/models/user.model';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  workspaceId?: string;
-  id?: string;
-  user?: User;
-  loading = false;
+  workspaceId!: string | null;
+  userId!: string;
+  user!: WorkspaceUser;
 
   constructor(
     private route: ActivatedRoute,
-    private service: UserService,
-    public router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
-  ngOnInit() {
-    this.workspaceId = this.route.snapshot.paramMap.get('id') || undefined;
-    this.id = this.route.snapshot.paramMap.get('userId') || undefined;
-    if (this.workspaceId && this.id) this.load();
+  ngOnInit(): void {
+    this.workspaceId = this.route.snapshot.paramMap.get('id');
+    const paramId = this.route.snapshot.paramMap.get('userId');
+    if (!paramId) throw new Error('User ID not provided in route!');
+    this.userId = paramId;
+    if (!this.userId) {
+      // also support global route param name
+      this.userId = this.route.snapshot.paramMap.get('userId') || this.route.snapshot.paramMap.get('userId')!;
+    }
+
+    this.userService.getUserById(this.userId).subscribe(u => (this.user = u));
   }
 
-  load() {
-    this.loading = true;
-    this.service.get(this.workspaceId!, this.id!).subscribe({
-      next: u => {
-        this.user = u;
-        this.loading = false;
-      }
-    });
-  }
-
-  edit() {
-    this.router.navigate(['edit']);
+  back(): void {
+    if (this.workspaceId) {
+      this.router.navigate(['/dashboard/workspaces', this.workspaceId, 'users']);
+    } else {
+      this.router.navigate(['/dashboard/users']);
+    }
   }
 }
