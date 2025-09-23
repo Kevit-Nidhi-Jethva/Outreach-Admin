@@ -19,7 +19,6 @@
 .main-content {
   flex-grow: 1;
   margin-left: 250px;
-  padding: 0;
   background-color: #f8fafc;
   min-height: 100vh;
   display: flex;
@@ -30,8 +29,10 @@
 
 .content-inner {
   flex-grow: 1;
-  overflow-y: auto;
+  padding: 0 ;
+  margin: 0;
 }
+
 
 /* Fix header and main content behind sidebar */
 .app-header {

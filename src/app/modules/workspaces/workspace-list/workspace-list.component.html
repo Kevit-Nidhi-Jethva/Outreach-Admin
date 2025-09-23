@@ -1,10 +1,24 @@
 <p-toast></p-toast>
 
 <div class="workspace-container">
-  <div class="header d-flex justify-content-between align-items-center flex-wrap mb-4">
-    <h3 class="fw-bold mb-3">Workspaces</h3>
-    <button pButton label=" New Workspace" icon="pi pi-plus" class="btn-new p-button-success" (click)="newWorkspace()"></button>
+<h3>Workspaces</h3>
+
+<div class="header d-flex align-items-center mb-4">
+  <div class="search-container">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        placeholder="Search workspaces..."
+        [(ngModel)]="searchTerm"
+        (input)="filterWorkspaces()"
+        class="search-input"
+      />
+    </span>
   </div>
+  <button pButton label="New Workspace" icon="pi pi-plus" class="btn-new" (click)="newWorkspace()"></button>
+</div>
 
   <div *ngIf="loading" class="loading d-flex justify-content-center align-items-center">
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #0d6efd;"></i>
@@ -12,39 +26,43 @@
 
   <div *ngIf="error" class="error mb-3">{{ error }}</div>
 
-  <p-table
-    [value]="workspaces"
-    [paginator]="true"
-    [rows]="8"
-    [rowsPerPageOptions]="[5,8,15,25]"
-    [responsiveLayout]="'scroll'"
-    class="workspace-table shadow-sm"
-    *ngIf="!loading && workspaces.length > 0"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Name</th>
-        <th>Created By</th>
-        <th>Actions</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-ws>
-      <tr>
-        <td>{{ ws.name }}</td>
-        <td>{{ ws.createdBy }}</td>
-        <td>
-          <button pButton icon="pi pi-eye" class="action-btn view-btn me-2" (click)="view(ws._id)"></button>
-          <button pButton icon="pi pi-pencil" class="action-btn edit-btn me-2" (click)="edit(ws._id)"></button>
-          <button pButton icon="pi pi-trash" class="action-btn delete-btn" (click)="delete(ws._id)"></button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td colspan="3" class="text-center">No workspaces found.</td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div class="card workspaces-card p-3 shadow-sm border-0">
+    <p-table
+      [value]="filteredWorkspaces"
+      [paginator]="true"
+      [rows]="8"
+      [rowsPerPageOptions]="[5,8,15,25]"
+      [responsiveLayout]="'scroll'"
+      class="workspace-table"
+      *ngIf="!loading && filteredWorkspaces.length > 0"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Created By</th>
+          <th style="width: 160px">Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-ws>
+        <tr>
+          <td>{{ ws.name }}</td>
+          <td>{{ ws.createdBy }}</td>
+          <td class="text-center">
+            <div class="action-buttons">
+              <button pButton icon="pi pi-eye" class="action-btn view-btn" (click)="view(ws._id)" pTooltip="View Workspace" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-pencil" class="action-btn edit-btn" (click)="edit(ws._id)" pTooltip="Edit Workspace" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-trash" class="action-btn delete-btn" (click)="delete(ws._id)" pTooltip="Delete Workspace" tooltipPosition="top"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="3" class="text-center">No workspaces found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 
   <p *ngIf="!loading && workspaces.length === 0" class="text-center mt-4">No workspaces found.</p>
 </div>

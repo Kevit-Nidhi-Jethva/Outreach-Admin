@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post<any>(`${this.apiUrl}/loginadmin`, credentials).pipe(
       tap((response) => {
         if (response?.token && typeof localStorage !== 'undefined') {
           localStorage.setItem('token', response.token);
@@ -63,5 +64,30 @@ export class AuthService {
     return null;
   }
 }
+
+  verifyToken(): Observable<boolean> {
+    const token = this.getToken();
+    if (!token) return of(false);
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const isExpired = decoded.exp * 1000 < Date.now();
+      return of(!isExpired);
+    } catch {
+      return of(false);
+    }
+  }
+
+  isAdminSync(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.isAdmin === true;
+    } catch {
+      return false;
+    }
+  }
 
 }

@@ -1,18 +1,93 @@
-.dashboard-wrapper {
-  padding: 20px;
-  background: #f9fafb;
-  min-height: 100vh;
+:host {
+  display: block;
+  height: 100%;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: transparent;
+}
+
+.dashboard-header {
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #212529;
+    margin: 0 0 8px 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    border-bottom: 2px solid #007bff;
+  }
+
+  p {
+    color: #6b7280;
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.chart-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #495057;
+    margin: 0 0 15px 0;
+  }
 }
 
 .chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stat-card {
   background: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #495057;
+    display: block;
+  }
 }

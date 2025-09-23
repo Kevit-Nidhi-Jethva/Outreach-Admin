@@ -12,6 +12,8 @@ import { MessageService } from 'primeng/api';
 })
 export class WorkspaceListComponent implements OnInit {
   workspaces: Workspace[] = [];
+  filteredWorkspaces: Workspace[] = [];
+  searchTerm = '';
   loading = false;
   error: string | null = null;
   currentUserName: string | null = null;
@@ -38,6 +40,7 @@ export class WorkspaceListComponent implements OnInit {
           ...ws,
           createdBy: this.currentUserName || ws.createdBy,
         }));
+        this.filteredWorkspaces = [...this.workspaces];
         this.loading = false;
       },
       error: (err) => {
@@ -45,6 +48,12 @@ export class WorkspaceListComponent implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  filterWorkspaces() {
+    this.filteredWorkspaces = this.workspaces.filter(ws =>
+      ws.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   view(id: string) {

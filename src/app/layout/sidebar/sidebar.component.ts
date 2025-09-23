@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   items = [
-    { icon: 'dashboard', label: 'Dashboard', route: ['/dashboard'] },
-    { icon: 'groups', label: 'Workspaces', route: ['/dashboard/workspaces'] },
-    { icon: 'person', label: 'Users', route: ['/dashboard/users'] }
+    { icon: 'dashboard', label: 'Dashboard', route: ['/app/dashboard'] },
+    { icon: 'groups', label: 'Workspaces', route: ['/app/workspaces'] },
+    { icon: 'person', label: 'Workspace-Users', route: ['/app/users'] }
   ];
 
   constructor(private router: Router) {}

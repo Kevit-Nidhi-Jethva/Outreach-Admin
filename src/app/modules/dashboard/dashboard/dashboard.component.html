@@ -1,1 +1,28 @@
-<app-layout></app-layout>
+<div class="dashboard-content">
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Welcome to your dashboard overview</p>
+  </div>
+
+  <div class="dashboard-grid">
+    
+
+    <div class="stats-section">
+      <div class="stat-card">
+        <h3>Total Workspaces</h3>
+        <span class="stat-number">12</span>
+      </div>
+      <div class="stat-card">
+        <h3>Active Users</h3>
+        <span class="stat-number">156</span>
+      </div>
+      <div class="stat-card">
+        <h3>Total Revenue</h3>
+        <span class="stat-number">$24,500</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Router outlet for child routes (workspaces, users) -->
+  <router-outlet></router-outlet>
+</div>
