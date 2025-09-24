@@ -45,6 +45,6 @@ export class WorkspaceViewComponent implements OnInit {
   }
 
   backToList() {
-    this.router.navigate(['/dashboard/workspaces']);
+    this.router.navigate(['/app/workspaces']);
   }
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkspaceService } from '../workspace.service';
 import { Workspace } from '../../../core/models/workspace.model';
+import { AlertDialogService } from '../../../shared/components/alert-dialog/alert-dialog.service';
 
 @Component({
   selector: 'app-workspace-form',
@@ -18,7 +19,8 @@ export class WorkspaceFormComponent implements OnInit {
     private fb: FormBuilder,
     private workspaceService: WorkspaceService,
     private route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private alertDialogService: AlertDialogService
   ) {}
 
   ngOnInit(): void {
@@ -57,21 +59,37 @@ export class WorkspaceFormComponent implements OnInit {
     if (this.isEditMode) {
       this.workspaceService.update(this.workspaceId, data).subscribe({
         next: () => {
-          alert('Workspace updated successfully!');
-          this.router.navigate(['../']);
+          this.alertDialogService.showSuccess(
+            'Success',
+            'Workspace updated successfully!'
+          ).then(() => {
+            this.router.navigate(['/app/workspaces']);
+          });
         },
         error: (err) => {
           console.error('Update failed', err);
+          this.alertDialogService.showError(
+            'Error',
+            'Failed to update workspace. Please try again.'
+          );
         }
       });
     } else {
       this.workspaceService.create(data).subscribe({
         next: () => {
-          alert('Workspace created successfully!');
-          this.router.navigate(['../']);
+          this.alertDialogService.showSuccess(
+            'Success',
+            'Workspace created successfully!'
+          ).then(() => {
+            this.router.navigate(['/app/workspaces']);
+          });
         },
         error: (err) => {
           console.error('Creation failed', err);
+          this.alertDialogService.showError(
+            'Error',
+            'Failed to create workspace. Please try again.'
+          );
         }
       });
     }

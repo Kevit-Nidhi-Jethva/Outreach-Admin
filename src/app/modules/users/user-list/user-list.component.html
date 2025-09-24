@@ -92,3 +92,159 @@
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #0d6efd"></i>
   </div>
 </div>
+
+<!-- Add User Modal -->
+<p-dialog
+  header="Add New User"
+  [(visible)]="displayAddUserModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{width: '600px', minHeight: 'auto'}"
+  [closable]="true"
+  (onHide)="closeAddUserModal()"
+  styleClass="user-modal"
+>
+  <div class="modal-content">
+    <div class="modal-header-section">
+      <div class="modal-icon">
+        <i class="pi pi-user-plus"></i>
+      </div>
+      <div class="modal-title-text">
+        <h4>Create User Account</h4>
+        <p class="modal-subtitle">Add a new user to the workspace with appropriate role</p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="submitAddUser()" class="user-form">
+      <div class="form-section">
+        <div class="form-row">
+          <div class="form-field">
+            <label>
+              <i class="pi pi-user"></i>
+              Full Name *
+            </label>
+            <input
+              pInputText
+              id="userName"
+              type="text"
+              [(ngModel)]="userForm.name"
+              name="name"
+              required
+              placeholder="Enter full name"
+              class="form-input"
+              [class.is-invalid]="formErrors['name']"
+            />
+            <div class="invalid-feedback" *ngIf="formErrors['name']">
+              {{ formErrors['name'] }}
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>
+              <i class="pi pi-envelope"></i>
+              Email Address *
+            </label>
+            <input
+              pInputText
+              id="userEmail"
+              type="email"
+              [(ngModel)]="userForm.email"
+              name="email"
+              required
+              placeholder="Enter email address"
+              class="form-input"
+              [class.is-invalid]="formErrors['email']"
+            />
+            <div class="invalid-feedback" *ngIf="formErrors['email']">
+              {{ formErrors['email'] }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>
+              <i class="pi pi-lock"></i>
+              Password *
+            </label>
+            <p-password
+              id="userPassword"
+              [(ngModel)]="userForm.password"
+              name="password"
+              required
+              placeholder="Enter secure password"
+              class="password-input"
+              [class.is-invalid]="formErrors['password']"
+              [toggleMask]="true"
+              [feedback]="false"
+            >
+            </p-password>
+            <div class="invalid-feedback" *ngIf="formErrors['password']">
+              {{ formErrors['password'] }}
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>
+              <i class="pi pi-phone"></i>
+              Phone Number
+            </label>
+            <input
+              pInputText
+              id="userPhoneNumber"
+              type="tel"
+              [(ngModel)]="userForm.phoneNumber"
+              name="phoneNumber"
+              placeholder="Enter phone number (optional)"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>
+              <i class="pi pi-sitemap"></i>
+              Role *
+            </label>
+            <p-dropdown
+              id="userRole"
+              [(ngModel)]="userForm.role"
+              name="role"
+              [options]="[
+                {label: 'Editor', value: 'Editor'},
+                {label: 'Viewer', value: 'Viewer'}
+              ]"
+              placeholder="Select role"
+              class="form-input"
+              [class.is-invalid]="formErrors['role']"
+            ></p-dropdown>
+            <div class="invalid-feedback" *ngIf="formErrors['role']">
+              {{ formErrors['role'] }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          pButton
+          type="button"
+          label="Cancel"
+          class="footer-btn p-button-secondary"
+          (click)="closeAddUserModal()"
+          [disabled]="isSubmitting"
+        ></button>
+        <button
+          pButton
+          type="submit"
+          label="Create User"
+          class="footer-btn p-button-success"
+          [disabled]="isSubmitting || !userForm.name || !userForm.email || !userForm.password"
+          [loading]="isSubmitting"
+        ></button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

@@ -39,6 +39,6 @@ export class AdminLandingComponent implements OnInit {
 
   manageUsers(ws: any) {
     // navigate to the workspace users route handled by WorkspacesRoutingModule
-    this.router.navigate(['/dashboard/workspaces', ws._id, 'users']);
+    this.router.navigate(['/app/workspaces', ws._id, 'users']);
   }
 }

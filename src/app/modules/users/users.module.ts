@@ -11,6 +11,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
 
 import { MessageService, ConfirmationService } from 'primeng/api';
 
@@ -37,7 +40,10 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     DropdownModule,
     CardModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CheckboxModule,
+    DialogModule,
+    PasswordModule
   ],
   providers: [MessageService, ConfirmationService],
   exports: [AdminLandingComponent]

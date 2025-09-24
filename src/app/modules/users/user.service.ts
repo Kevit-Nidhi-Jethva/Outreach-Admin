@@ -60,6 +60,8 @@ export class UserService {
     name: string;
     email: string;
     password: string;
+    phoneNumber?: string;
+    isAdmin?: boolean;
     workspaces: { workspaceId: string; role: 'Editor' | 'Viewer' }[]; // ✅ no global role
     createdBy?: string;
   }): Observable<WorkspaceUser> {
@@ -75,6 +77,16 @@ export class UserService {
       }
     }
     return this.http.post<WorkspaceUser>(`${this.base}/adduser`, payload, this.headers());
+  }
+
+  /** Admin: create admin user */
+  createAdmin(payload: {
+    name: string;
+    email: string;
+    password: string;
+    phoneNumber?: string;
+  }): Observable<WorkspaceUser> {
+    return this.http.post<WorkspaceUser>(`${this.base}/addadmin`, payload, this.headers());
   }
 
   /** Admin: update user (role only from workspaces array) */

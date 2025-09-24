@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { MessageService } from 'primeng/api';
 import { WorkspaceUser } from '../../../core/models/workspace-user.model';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-user-form',
@@ -22,12 +23,17 @@ export class UserFormComponent implements OnInit {
     { label: 'Viewer', value: 'Viewer' }
   ];
 
+  get isCurrentUserAdmin(): boolean {
+    return this.authService.isAdminSync();
+  }
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +45,8 @@ export class UserFormComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: [''],
+      phoneNumber: [''],
+      isAdmin: [false],
       role: ['Editor', Validators.required]
     });
 
@@ -70,12 +78,29 @@ export class UserFormComponent implements OnInit {
 
     const val = this.form.value;
 
+    // Check if non-admin user is trying to create an admin user
+    if (val.isAdmin && !this.isCurrentUserAdmin) {
+      this.loading = false;
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Unauthorized',
+        detail: 'Only administrators can create admin users'
+      });
+      return;
+    }
+
     if (this.isEdit && this.userId) {
       const body: any = {
         name: val.name,
         email: val.email,
+        isAdmin: val.isAdmin,
         workspaces: [{ workspaceId: this.workspaceId, role: val.role }]
       };
+
+      // Only include phoneNumber if it's not empty
+      if (val.phoneNumber?.trim()) {
+        body.phoneNumber = val.phoneNumber.trim();
+      }
 
       this.userService.updateUser(this.userId, body).subscribe({
         next: () => {
@@ -92,8 +117,14 @@ export class UserFormComponent implements OnInit {
         name: val.name,
         email: val.email,
         password: val.password || (val.email ? `${val.email.split('@')[0]}${Date.now()}` : `pw${Date.now()}`),
+        isAdmin: val.isAdmin,
         workspaces: [{ workspaceId: this.workspaceId, role: val.role }]
       };
+
+      // Only include phoneNumber if it's not empty
+      if (val.phoneNumber?.trim()) {
+        body.phoneNumber = val.phoneNumber.trim();
+      }
 
       this.userService.createUser(body).subscribe({
         next: () => {
@@ -110,9 +141,9 @@ export class UserFormComponent implements OnInit {
 
   navigateBack(): void {
     if (this.workspaceId) {
-      this.router.navigate(['/dashboard/workspaces', this.workspaceId, 'users']);
+      this.router.navigate(['/app/workspaces', this.workspaceId, 'users']);
     } else {
-      this.router.navigate(['/dashboard/users']);
+      this.router.navigate(['/app/users']);
     }
   }
 }

@@ -17,7 +17,8 @@
       />
     </span>
   </div>
-  <button pButton label="New Workspace" icon="pi pi-plus" class="btn-new" (click)="newWorkspace()"></button>
+  <button pButton label="New Workspace" icon="pi pi-plus" class="btn-primary" (click)="newWorkspace()"></button>
+  <button pButton label="Add Admin" icon="pi pi-user-plus" class="btn-secondary" (click)="openAddAdminModal()"></button>
 </div>
 
   <div *ngIf="loading" class="loading d-flex justify-content-center align-items-center">
@@ -66,3 +67,137 @@
 
   <p *ngIf="!loading && workspaces.length === 0" class="text-center mt-4">No workspaces found.</p>
 </div>
+
+<!-- Add Admin Modal -->
+<p-dialog
+  header="Add New User"
+  [(visible)]="displayAddAdminModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{width: '600px', minHeight: 'auto'}"
+  [closable]="true"
+  (onHide)="closeAddAdminModal()"
+  styleClass="admin-modal"
+>
+  <div class="modal-content">
+    <div class="modal-header-section">
+      <div class="modal-icon">
+        <i class="pi pi-user-plus"></i>
+      </div>
+      <div class="modal-title-text">
+        <h4>Create Administrator Account</h4>
+        <p class="modal-subtitle">Add a new administrator with full system access and management privileges</p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="submitAddAdmin()" class="admin-form">
+      <div class="form-section">
+        <div class="form-row">
+          <div class="form-field">
+            <label>
+              <i class="pi pi-user"></i>
+              Full Name *
+            </label>
+            <input
+              pInputText
+              id="adminName"
+              type="text"
+              [(ngModel)]="adminForm.name"
+              name="name"
+              required
+              placeholder="Enter full name"
+              class="form-input"
+              [class.is-invalid]="formErrors['name']"
+            />
+            <div class="invalid-feedback" *ngIf="formErrors['name']">
+              {{ formErrors['name'] }}
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>
+              <i class="pi pi-envelope"></i>
+              Email Address *
+            </label>
+            <input
+              pInputText
+              id="adminEmail"
+              type="email"
+              [(ngModel)]="adminForm.email"
+              name="email"
+              required
+              placeholder="Enter email address"
+              class="form-input"
+              [class.is-invalid]="formErrors['email']"
+            />
+            <div class="invalid-feedback" *ngIf="formErrors['email']">
+              {{ formErrors['email'] }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>
+              <i class="pi pi-lock"></i>
+              Password *
+            </label>
+            <p-password
+              id="adminPassword"
+              [(ngModel)]="adminForm.password"
+              name="password"
+              required
+              placeholder="Enter secure password"
+              class="password-input"
+              [class.is-invalid]="formErrors['password']"
+              [toggleMask]="true"
+              [feedback]="false"
+            >
+            </p-password>
+            <div class="invalid-feedback" *ngIf="formErrors['password']">
+              {{ formErrors['password'] }}
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>
+              <i class="pi pi-phone"></i>
+              Phone Number
+            </label>
+            <input
+              pInputText
+              id="adminPhoneNumber"
+              type="tel"
+              [(ngModel)]="adminForm.phoneNumber"
+              name="phoneNumber"
+              placeholder="Enter phone number (optional)"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button
+          pButton
+          type="button"
+          label="Cancel"
+          class="footer-btn p-button-secondary"
+          (click)="closeAddAdminModal()"
+          [disabled]="isSubmitting"
+        ></button>
+        <button
+          pButton
+          type="submit"
+          label="Create Administrator"
+          class="footer-btn p-button-success"
+          [disabled]="isSubmitting || !adminForm.name || !adminForm.email || !adminForm.password"
+          [loading]="isSubmitting"
+        ></button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

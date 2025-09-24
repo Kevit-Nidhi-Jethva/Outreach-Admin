@@ -8,9 +8,12 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { WorkspacesRoutingModule } from './workspaces-routing.module';
-
 
 import { WorkspaceListComponent } from '../workspaces/workspace-list/workspace-list.component';
 import { WorkspaceFormComponent } from '../workspaces/workspace-form/workspace-form.component';
@@ -41,6 +44,10 @@ ToastModule,
 ButtonModule,
 CardModule,
 TableModule,
+DialogModule,
+PasswordModule,
+InputTextModule,
+CheckboxModule,
 ],
 providers: [],
 })

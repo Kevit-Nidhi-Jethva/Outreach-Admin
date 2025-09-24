@@ -19,6 +19,21 @@
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input pInputText formControlName="phoneNumber" class="form-control" placeholder="Enter phone number (optional)" />
+            </div>
+
+            <div class="form-group" *ngIf="isCurrentUserAdmin">
+              <label class="form-label">Admin Status</label>
+              <p-checkbox formControlName="isAdmin"
+                          label="Is Administrator"
+                          class="form-control">
+              </p-checkbox>
+            </div>
+          </div>
+
           <!-- Only show password on create -->
           <div class="form-row" *ngIf="!isEdit">
             <div class="form-group">
@@ -30,7 +45,7 @@
           <!-- Role selection (always shown, edit or create) -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Role</label>
+              <label class="form-label">Workspace Role</label>
               <p-dropdown [options]="roleOptions"
                           formControlName="role"
                           optionLabel="label"

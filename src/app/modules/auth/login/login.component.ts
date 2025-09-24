@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           console.log(res);
           // Check if user is admin using token
           if (this.authService.isAdminSync()) {
-            this.router.navigate(['/app/dashboard']);
+            this.router.navigate(['/app/workspaces']);
           } else {
             this.errorMessage = 'Unauthorized: Admin access required';
             this.authService.logout();

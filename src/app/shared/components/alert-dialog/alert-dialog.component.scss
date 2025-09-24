@@ -1,0 +1,101 @@
+.alert-dialog {
+  padding: 20px;
+  min-width: 400px;
+  max-width: 500px;
+
+  .alert-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+
+    mat-icon {
+      margin-right: 12px;
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+
+      &.success {
+        color: #4caf50;
+      }
+
+      &.error {
+        color: #f44336;
+      }
+
+      &.warning {
+        color: #ff9800;
+      }
+
+      &.info {
+        color: #2196f3;
+      }
+    }
+
+    .alert-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      color: #333;
+    }
+  }
+
+  .alert-content {
+    margin-bottom: 24px;
+
+    .alert-message {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #555;
+    }
+  }
+
+  .alert-actions {
+    padding: 8px 0 0 0;
+    margin-bottom: 0;
+
+    .confirm-button {
+      min-width: 80px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+// Animation for the dialog
+.alert-dialog {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive design
+@media (max-width: 600px) {
+  .alert-dialog {
+    min-width: 300px;
+    max-width: 90vw;
+    padding: 16px;
+
+    .alert-header {
+      .alert-title {
+        font-size: 18px;
+      }
+    }
+
+    .alert-content {
+      .alert-message {
+        font-size: 14px;
+      }
+    }
+  }
+}

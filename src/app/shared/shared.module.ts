@@ -1,36 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './material.module';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { AlertDialogService } from './components/alert-dialog/alert-dialog.service';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ConfirmationDialogComponent,
+    AlertDialogComponent
+  ],
   imports: [
     CommonModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatDialogModule,
-    MatInputModule,
+    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatDialogModule,
-    MatInputModule,
+    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    ConfirmationDialogComponent,
+    AlertDialogComponent
+  ],
+  providers: [AlertDialogService]
 })
 export class SharedModule {}

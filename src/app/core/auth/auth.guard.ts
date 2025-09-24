@@ -25,8 +25,14 @@ export class AuthGuard implements CanActivate {
       const decoded: DecodedToken = jwtDecode(token);
       const isExpired = decoded.exp * 1000 < Date.now();
 
-      if (isExpired || !decoded.isAdmin) {
+      if (isExpired) {
         this.authService.logout();
+        return false;
+      }
+
+      if (!decoded.isAdmin) {
+        // Not an admin: redirect to dashboard instead of logging out
+        this.router.navigate(['/app/dashboard']);
         return false;
       }
       return true;

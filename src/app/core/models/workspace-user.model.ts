@@ -2,6 +2,7 @@ export interface WorkspaceUser {
   _id?: string;
   name: string;
   email: string;
+  phoneNumber?: string;
   isAdmin?: boolean;
   workspaces?: { workspaceId: string; role: 'Editor' | 'Viewer' }[];
   createdAt?: string;

@@ -34,9 +34,9 @@ export class UserDetailComponent implements OnInit {
 
   back(): void {
     if (this.workspaceId) {
-      this.router.navigate(['/dashboard/workspaces', this.workspaceId, 'users']);
+      this.router.navigate(['/app/workspaces', this.workspaceId, 'users']);
     } else {
-      this.router.navigate(['/dashboard/users']);
+      this.router.navigate(['/app/users']);
     }
   }
 }
